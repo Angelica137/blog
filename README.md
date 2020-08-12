@@ -6,3 +6,5 @@ Relational databases
 Form processing and validation
 Template rendering
 User authentication
+iPython
+scripting
