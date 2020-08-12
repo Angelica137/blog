@@ -1,5 +1,5 @@
-import os
-sys.path.append(os.getswd())
+import os, sys
+sys.path.append(os.getcwd())
 from main import db
 
 
