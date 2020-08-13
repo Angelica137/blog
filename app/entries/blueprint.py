@@ -29,7 +29,10 @@ def tag_index():
 
 @entries.route('/tags/<slug>')
 def tag_detail(slug):
-    pass
+    tag = Tag.query.filter(Tag.slug == slug).first_or_404()
+    entries = tag.entries.order_by(Entry.created_tomestam.desc())
+    return object_list('entries/tag_detail.html', entries, tag=tag)
+
 
 
 @entries.route('/<slug>')
