@@ -1,10 +1,15 @@
 # Another blog built in Flask
 
-This project uses
+I worked on this project to learn about the below tools for building pwas.
 
+Flask framework
 Relational databases
+\*Modeling and implemeting one to one, one to many, and many to many relationships
 Form processing and validation
-Template rendering
+Template rendering and blueprints
 User authentication
 iPython
 scripting
+Jinja
+URL Schemas
+Text search
