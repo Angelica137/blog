@@ -15,7 +15,8 @@ def index():
 
 @entries.route('/tags/')
 def tag_index():
-    pass
+    tags = Tag.query.order_by(Tag.name)
+    return object_list('entries/tag_index.html', tags)
 
 
 @entries.route('/tags/<slug>')
