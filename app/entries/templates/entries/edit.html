@@ -1,6 +1,6 @@
-{% extends "base.html" %} {% from "macros/form_field.html" import from_field %}
-{% cblock title %}Edit{{ entry.title }}{% endblock %} {% block content_title
-%}Edit{{ entry.title }}{% endblock %} {% block content %}
+{% extends "base.html" %} {% from "macros/form_field.html" import form_field %}
+{% block title %}Edit {{ entry.title }}{% endblock %} {% block content_title
+%}Edit {{ entry.title }}{% endblock %} {% block content %}
 <form
   action="{{ url_for('entries.edit', slug=entry.slug) }}"
   class="form form-horizontal"

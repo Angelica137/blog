@@ -7,11 +7,12 @@ from entries.forms import EntryForm
 
 
 def entry_list(template, query, **context):
-    search = request.args.get('q')
-    if search:
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT)
+    query = query.filter(Entry.status.in_(valid_statuses))
+    if request.args.get('q'):
+        search = request.args['q']
         query = query.filter((Entry.body.contains(search)) | (Entry.title.contains(search)))
     return object_list(template, query, **context)
-
 
 
 entries = Blueprint('entries', __name__, template_folder='templates')
@@ -70,3 +71,14 @@ def edit(slug):
 
     return render_template('entries/edit.html', entry=entry, form=form)
 
+
+@entries.route('/<slug>/delete/', methods=['GET', 'POST'])
+def delete(slug):
+    entry = Entry.query.filter(Entry.slug == slug).first_or_404()
+    if request.method == 'POST':
+        entry.status = Entry.STATUS_DELETED
+        db.session.add(entry)
+        db.session.commit()
+        return redirect(url_for('entries.index'))
+
+    return render_template('entries/delete.html', entry=entry)
