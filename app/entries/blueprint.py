@@ -15,6 +15,12 @@ def entry_list(template, query, **context):
     return object_list(template, query, **context)
 
 
+def get_entry_or_404(slug):
+    valid_statuses = (Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT) 
+    valid_statuses = (Entry.query.filter((Entry.slug == slug) & (Entry.status.in_(valid_statuses))).first_or_404())
+    return valid_statuses
+
+
 entries = Blueprint('entries', __name__, template_folder='templates')
 
 
@@ -54,7 +60,7 @@ def create():
 
 @entries.route('/<slug>')
 def detail(slug):
-    entry = Entry.query.filter(Entry.slug == slug).first_or_404()
+    entry = get_entry_or_404(slug)
     return render_template('entries/detail.html', entry=entry)
 
 
