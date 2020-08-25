@@ -1,4 +1,4 @@
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, flash, redirect, render_template, request, url_for
 
 from app import db
 from helpers import object_list
@@ -51,6 +51,7 @@ def create():
             entry = form.save_entry(Entry())
             db.session.add(entry)
             db.session.commit()
+            flash('Entry "%s" created successfully.' % entry.title, 'success')
             return redirect(url_for('entries.detail', slug=entry.slug))
     else:
         form = EntryForm()
@@ -71,6 +72,7 @@ def edit(slug):
         form = EntryForm(request.form, obj=entry)
         db.session.add(entry)
         db.session.commit()
+        flash('Entry "%s" has been saved' % entry.title, 'success')
         return redirect(url_for('entries.detail', slug=entry.slug))
     else:
         form = EntryForm(obj=entry)
