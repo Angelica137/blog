@@ -87,6 +87,7 @@ def delete(slug):
         entry.status = Entry.STATUS_DELETED
         db.session.add(entry)
         db.session.commit()
+        flash('Entry "%s" has been deleted.' % entry.title, 'success')
         return redirect(url_for('entries.index'))
 
     return render_template('entries/delete.html', entry=entry)
