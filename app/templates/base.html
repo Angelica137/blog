@@ -3,9 +3,11 @@
   <head>
     <meta charset="utf-8" />
     <title>{% block title %}{% endblock %} | My Blog</title>
+
     <link
       rel="stylesheet"
-      href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+      href="{{ url_for('static',
+    filename='css/bootstrap.min.css') }}"
     />
     <style type="text/css">
       body {
@@ -14,8 +16,8 @@
     </style>
     {% block extra_styles %}{% endblock %}
 
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.slim.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     {% block extra_scripts %}{% endblock %}
   </head>
 
