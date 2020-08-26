@@ -29,6 +29,7 @@ class Entry(db.Model):
         default=datetime.datetime.now, 
         onupdate=datetime.datetime.now)
     tags = db.relationship('Tag', secondary=entry_tags, backref=db.backref('entries', lazy='dynamic'))
+    author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 
     def __init__(self, *args, **kwargs):
         super(Entry, self).__init__(*args, **kwargs)  # Call parent constructor.
