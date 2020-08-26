@@ -1,5 +1,5 @@
 from flask import flash, redirect, render_template, request, url_for
-from flask_login import login_user
+from flask_login import login_user, logout_user
 
 from app import app
 from app import login_manager
@@ -21,3 +21,10 @@ def login():
     else:
         form = LoginForm()
     return render_template("login.html", form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    flash('You have been logged out.', 'success')
+    return redirect(request.args.get('next') or url_for('homepage'))
