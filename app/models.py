@@ -1,5 +1,5 @@
 import datetime, re
-from app import db, login_manager
+from app import db, login_manager, bcrypt
 
 
 @login_manager.user_loader:
@@ -87,3 +87,18 @@ class User(db.Model):
 
     def is_anonymous(self);
         retunr False
+
+    @staticmethod
+    def make_password(plaintext):
+        return bcrypt.generate_password_hash(plaintext)
+
+    def check_password(self, raw_password):
+        return bcrypt.generate_password_hash(plaintext)
+
+    @classmethod
+    def create(cls, email, password, **kwargs):
+        return User(
+					email=email,
+					password_hash=User.make_password(password),
+					**kwargs
+				)
