@@ -31,14 +31,10 @@ def get_entry_or_404(slug, author=None):
 
 def filter_status_by_user(query):
     if not g.user.is_authenticated:
-        query.filter(Entry.status == Entry.STATUS_PUBLIC)
+        return query.filter(Entry.status == Entry.STATUS_PUBLIC)
     else:
-        '''
-        Display own and undeleted entries, public and drafst
-        '''
-        query = query.filter(
-					(Entry.status == Entry.STATUS_PUBLIC) | ((Entry.author == g.user) & (Entry.status !=Entry.STATUS_DELETED))
-				)
+        return query.filter(
+            Entry.status.in_((Entry.STATUS_PUBLIC, Entry.STATUS_DRAFT)))
     return query
 
 
