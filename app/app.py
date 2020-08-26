@@ -1,8 +1,9 @@
 from flask import Flask, g
-frin flask.ext.login import LoginManager, current_user
+from flask.ext.login import LoginManager, current_user
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate, MigrateCommand
 from flask_script import Manager
+from flask.ext.bcrypt import Bcrypt
 
 from config import Configuration
 
@@ -21,3 +22,5 @@ login_manager.login_view = "login"
 @app.before_request
 def _beofre_request():
     g.user = current_user
+
+bcrypt = Bcrypt(app)
