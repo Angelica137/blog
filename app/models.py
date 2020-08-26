@@ -28,8 +28,8 @@ class Entry(db.Model):
         db.DateTime,
         default=datetime.datetime.now, 
         onupdate=datetime.datetime.now)
-    tags = db.relationship('Tag', secondary=entry_tags, backref=db.backref('entries', lazy='dynamic'))
     author_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+    tags = db.relationship('Tag', secondary=entry_tags, backref=db.backref('entries', lazy='dynamic'))
 
     def __init__(self, *args, **kwargs):
         super(Entry, self).__init__(*args, **kwargs)  # Call parent constructor.
@@ -65,7 +65,7 @@ class User(db.Model):
     slug = db.Column(db.String(64))
     active = db.Column(db.Boolean, default=True)
     created_timestamp = db.Column(db.DateTime, default=datetime.datetime.now)
-    entries = db.relationships('Entry', backref='author', lazy='dynamic')
+    entries = db.relationship('Entry', backref='author', lazy='dynamic')
 
     def __init__(self, *args, **kwargs):
         super(User, self).__init__(*args, **kwargs)
