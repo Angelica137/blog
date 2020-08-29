@@ -104,3 +104,10 @@ class User(db.Model):
 					password_hash=User.make_password(password),
 					**kwargs
 				)
+
+    @staticmethod
+    def authenticate(email, password):
+        user = User.query.filter(User.email == email).first()
+        if user and user.check_password(password):
+            return user
+        return False

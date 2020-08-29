@@ -46,7 +46,7 @@
             <li><a href="{{ url_for('entries.index') }}">Blog</a></li>
             {% if g.user.is_authnticated %}
             <li>
-              <a href="{{ irl_for('logout', next=request.path) }}">Log out</a>
+              <a href="{{ url_for('logout', next=request.path) }}">Log out</a>
             </li>
             <li>
               {% else %}
