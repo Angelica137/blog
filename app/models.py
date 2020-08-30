@@ -95,7 +95,7 @@ class User(db.Model):
         return bcrypt.generate_password_hash(plaintext)
 
     def check_password(self, raw_password):
-        return bcrypt.generate_password_hash(plaintext)
+        return bcrypt.check_password_hash(self.password_hash, raw_password)
 
     @classmethod
     def create(cls, email, password, **kwargs):
